@@ -5,7 +5,7 @@ Shell::Shell(Simdisk& simdisk, NamedPipe& pipe, uint8_t userID)
 	currenInodeSet.insert(simdisk.getSuperBlock().getRootInode());
 }
 
-bool Shell::getStatus() {
+bool Shell::getStatus() const {
 	return usedFlag;
 }
 
@@ -155,6 +155,9 @@ void Shell::commandLine(istringstream iss, CRITICAL_SECTION& semaphore) {
 	else if (userInput == "newfile") {
 		if (!(iss >> userInput)) {
 			throw string("incomplete command");
+		}
+		else if (userInput.find('/') != string::npos) {
+			throw string("unacceptable file name");
 		}
 		string filename = userInput;
 		EnterCriticalSection(&semaphore);

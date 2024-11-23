@@ -20,7 +20,7 @@ void DirEntry::formatting() {
 	memset(this, 0, DIR_ENTRY_SIZE);
 }
 
-bool DirEntry::getUseFlag() {
+bool DirEntry::getUseFlag() const {
 	return useFlag;
 }
 
@@ -28,7 +28,7 @@ void DirEntry::setUseFlag(bool useFlag) {
 	this->useFlag = useFlag;
 }
 
-bool DirEntry::getType() {
+bool DirEntry::getType() const {
 	return type;
 }
 
@@ -36,7 +36,7 @@ void DirEntry::setType(bool type) {
 	this->type = type;
 }
 
-uint16_t DirEntry::getInodeID() {
+uint16_t DirEntry::getInodeID() const {
 	return inodeID;
 }
 

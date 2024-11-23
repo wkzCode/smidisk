@@ -24,8 +24,7 @@ int main() {
 		}
 	}
 
-	//用于前端登录的命名管道
-	NamedPipe* namedPipe = NULL;
+	NamedPipe* namedPipe = NULL; //用于前端登录的命名管道
 	try {
 		namedPipe = new NamedPipe("\\\\.\\pipe\\NamedPipe");
 	}
@@ -33,20 +32,18 @@ int main() {
 		outputError(errorMessage);
 	}
 
-	//初始化信号量，用于管理共享内存
-	CRITICAL_SECTION semaphore;
+	CRITICAL_SECTION semaphore; //信号量，用于管理共享内存
 	InitializeCriticalSection(&semaphore);
 
-	unordered_set<uint8_t>usersID;
-	vector<thread>t;
+	unordered_set<uint8_t>usersID; //用户ID集合
+	vector<thread>t; //线程集合
+
 	string userID = namedPipe->read();
 	namedPipe->write("");
 	namedPipe->~NamedPipe();
-
 	usersID.insert(atoi(userID.c_str()));
 
-	//用于执行指令的命名管道
-	NamedPipe* namedPipeUser1 = NULL;
+	NamedPipe* namedPipeUser1 = NULL; //用于执行指令的命名管道
 	string pipeName = "\\\\.\\pipe\\NamedPipe" + userID;
 	try {
 		namedPipeUser1 = new NamedPipe(pipeName);
@@ -54,7 +51,7 @@ int main() {
 	catch (const string errorMessage) {
 		outputError(errorMessage);
 	}
-	t.emplace_back(userShell, simdisk, namedPipeUser1, ref(semaphore), atoi(userID.c_str()));//创建线程与前端交互
+	t.emplace_back(userShell, simdisk, namedPipeUser1, ref(semaphore), atoi(userID.c_str())); //创建线程与前端交互
 
 	while (usersID.size() > 0) {
 		//用于前端登录的命名管道
@@ -64,8 +61,8 @@ int main() {
 		catch (const string errorMessage) {
 			outputError(errorMessage);
 		}
-		userID = namedPipe->read();
 
+		userID = namedPipe->read();
 		if (userID.size()) {
 			if (usersID.find(atoi(userID.c_str())) != usersID.end()) {
 				namedPipe->write("user already login");
@@ -77,16 +74,15 @@ int main() {
 			namedPipe->~NamedPipe();
 			usersID.insert(atoi(userID.c_str()));
 
-			//用于执行指令的命名管道，管道名以用户ID区分
-			NamedPipe* namedPipeUser = NULL;
-			string pipeName = "\\\\.\\pipe\\NamedPipe" + userID;
+			NamedPipe* namedPipeUser = NULL; //用于执行指令的命名管道
+			string pipeName = "\\\\.\\pipe\\NamedPipe" + userID; //管道名以用户ID区分
 			try {
 				namedPipeUser = new NamedPipe(pipeName);
 			}
 			catch (const string errorMessage) {
 				outputError(errorMessage);
 			}
-			t.emplace_back(userShell, simdisk, namedPipeUser, ref(semaphore), atoi(userID.c_str()));//创建线程与前端交互
+			t.emplace_back(userShell, simdisk, namedPipeUser, ref(semaphore), atoi(userID.c_str())); //创建线程与前端交互
 		}
 	}
 

@@ -40,7 +40,7 @@ class DirEntry;
 class File;
 class FileOp;
 class Inode;
+class NamedPipe;
 class SuperBlock;
 class Shell;
 class Simdisk;
-

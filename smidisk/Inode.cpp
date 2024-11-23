@@ -47,7 +47,7 @@ void Inode::setOtherPemissions(bool w, bool r) {
 	flags.set(4, r);
 }
 
-uint8_t Inode::getOwnerID() {
+uint8_t Inode::getOwnerID() const {
 	return ownerID;
 }
 
@@ -55,7 +55,7 @@ void Inode::setOwnerID(uint8_t uid) {
 	ownerID = uid;
 }
 
-uint32_t Inode::getFileSize() {
+uint32_t Inode::getFileSize() const {
 	return filesize;
 }
 
@@ -63,7 +63,7 @@ void Inode::setFileSize(uint32_t size) {
 	filesize = size;
 }
 
-uint32_t Inode::getBlockCnt() {
+uint32_t Inode::getBlockCnt() const {
 	return blockCnt;
 }
 
@@ -75,15 +75,15 @@ vector<uint32_t> Inode::getBlockX1() {
 	return vector<uint32_t>(blockX1, blockX1 + 10);
 }
 
-uint32_t Inode::getBlockX1(uint32_t pos) {
+uint32_t Inode::getBlockX1(uint32_t pos) const {
 	return blockX1[pos];
 }
 
-uint32_t Inode::getBlockX2() {
+uint32_t Inode::getBlockX2() const {
 	return blockX2;
 }
 
-uint32_t Inode::getBlockX3() {
+uint32_t Inode::getBlockX3() const {
 	return blockX3;
 }
 

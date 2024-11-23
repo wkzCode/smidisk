@@ -15,43 +15,43 @@ void SuperBlock::superBlockFormatting(uint16_t inodeBitmapSize, uint32_t blockBi
 	rootInode = INODE_CNT;
 }
 
-uint16_t SuperBlock::getMagicNum() {
+uint16_t SuperBlock::getMagicNum() const {
 	return magicNum;
 }
 
-uint16_t SuperBlock::getInodeBitmapPos() {
+uint16_t SuperBlock::getInodeBitmapPos() const {
 	return inodeBitmapPos;
 }
 
-uint32_t SuperBlock::getBlockBitmapPos() {
+uint32_t SuperBlock::getBlockBitmapPos() const {
 	return blockBitmapPos;
 }
 
-uint16_t SuperBlock::getFirstFreeInodeID() {
+uint16_t SuperBlock::getFirstFreeInodeID() const {
 	return firstFreeInodeID;
 }
 
-uint32_t SuperBlock::getFirstFreeBlockID() {
+uint32_t SuperBlock::getFirstFreeBlockID() const {
 	return firstFreeBlockID;
 }
 
-uint16_t SuperBlock::getFreeInodeCnt() {
+uint16_t SuperBlock::getFreeInodeCnt() const {
 	return freeInodeCnt;
 }
 
-uint32_t SuperBlock::getFreeBlockCnt() {
+uint32_t SuperBlock::getFreeBlockCnt() const {
 	return freeBlockCnt;
 }
 
-uint16_t SuperBlock::getFirstInodePos() {
+uint16_t SuperBlock::getFirstInodePos() const {
 	return firstInodePos;
 }
 
-uint32_t SuperBlock::getFirstBlockPos() {
+uint32_t SuperBlock::getFirstBlockPos() const {
 	return firstBlockPos;
 }
 
-uint16_t SuperBlock::getRootInode() {
+uint16_t SuperBlock::getRootInode() const {
 	return rootInode;
 }
 

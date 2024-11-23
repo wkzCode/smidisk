@@ -53,7 +53,7 @@ void Directory::file2Map() {
 	vector<DirEntry>dirs(filesize / DIR_ENTRY_SIZE);
 	memcpy(&dirs[0], file->getContent(), filesize);
 	map.clear();//«Âø’”≥…‰
-	for (auto dir : dirs) {
+	for (auto& dir : dirs) {
 		map.insert(make_pair(dir.getFilename(), dir));
 	}
 }

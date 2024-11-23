@@ -25,19 +25,19 @@ public:
 	void setOwnerPermissions(bool w = 1, bool r = 1);
 	void setOtherPemissions(bool w = 1, bool r = 1);
 
-	uint8_t getOwnerID();
+	uint8_t getOwnerID() const;
 	void setOwnerID(uint8_t uid);
 
-	uint32_t getFileSize();
+	uint32_t getFileSize() const;
 	void setFileSize(uint32_t size);
 
-	uint32_t getBlockCnt();
+	uint32_t getBlockCnt() const;
 	void setBlockCnt(uint32_t blockCnt);
 
 	vector<uint32_t> getBlockX1();
-	uint32_t getBlockX1(uint32_t pos);
-	uint32_t getBlockX2();
-	uint32_t getBlockX3();
+	uint32_t getBlockX1(uint32_t pos) const;
+	uint32_t getBlockX2() const;
+	uint32_t getBlockX3() const;
 	void setBlockX1(uint8_t pos, uint32_t blockID);
 	void setBlockX2(uint32_t blockID);
 	void setBlockX3(uint32_t blockID);

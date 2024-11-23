@@ -3,21 +3,27 @@
 Simdisk::Simdisk(const string vDiskName) : FileOp(vDiskName) {
 	uint16_t rootInodeID = 0;
 	if (rootInodeID != superBlock.getRootInode()) {
+		//初始化i节点
 		superBlock.setRootInode(0);
 		superBlock.freeInodeCntDecrement();
 		Inode& inode = getInode(rootInodeID);
 		inode.formatting();
 		inode.setUsed();
+
 		//建立相对路径
 		DirEntry relativePath[2];
 		relativePath[0] = DirEntry(1, 1, rootInodeID, "..");
 		relativePath[1] = DirEntry(1, 1, rootInodeID, ".");
+
 		loadFile(rootInodeID);
+
+		//初始化文件
 		File& file = getFile(rootInodeID);
 		file.getInode().setOwnerPermissions();
 		file.getInode().setOtherPemissions();
 		file.resizeContent(DIR_SIZE);
 		memcpy(file.getContent(), relativePath, DIR_SIZE);
+
 		writeFileBack(rootInodeID);
 	}
 	loadFile(rootInodeID);
@@ -65,14 +71,18 @@ void Simdisk::createDir(uint8_t userID, Directory targetDir, string dirname) {
 	uint16_t targetInodeID = createFile();
 	bitmap.setInode(targetInodeID);
 	uint16_t parentInodeID = targetDir["."].getInodeID();//目标目录为新建目录的父目录
+
 	//建立相对路径
 	DirEntry relativePath[2];
 	relativePath[0] = DirEntry(1, 1, parentInodeID, "..");
 	relativePath[1] = DirEntry(1, 1, targetInodeID, ".");
+
+	//初始化文件
 	File& file = getFile(targetInodeID);
 	file.setOwner(userID);
 	file.resizeContent(DIR_SIZE);
 	memcpy(file.getContent(), relativePath, DIR_SIZE);
+
 	targetDir.addFile(targetInodeID, dirname, 1);
 	writeFileBack(parentInodeID);
 	writeFileBack(targetInodeID);
@@ -96,8 +106,10 @@ void Simdisk::deleteSubdir(Directory dir) {
 }
 
 uint16_t Simdisk::createFile() {
+	//获取i节点
 	uint16_t targetInodeID = getAvlInodeID();
 	superBlock.freeInodeCntDecrement();
+	//初始化文件
 	File file(&inodeList[targetInodeID]);
 	file.getInode().formatting();
 	file.getInode().setUsed();
@@ -223,6 +235,7 @@ void Simdisk::writeFileBack(uint16_t inodeID) {
 		readBlock((char*)&blockX3[0], blockX3ID);
 	}
 	uint32_t count = 1;
+	//二次间接块的一次间接块
 	for (auto& blockX2ID : blockX3) {
 		if (blockX2ID == BAD_BLOCK_ID) {
 			blockX2ID = getAvlBlockID();

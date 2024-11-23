@@ -18,16 +18,16 @@ private:
 public:
 	void superBlockFormatting(uint16_t inodeBpSize, uint32_t blockBpSize);
 
-	uint16_t getMagicNum();
-	uint16_t getInodeBitmapPos();
-	uint32_t getBlockBitmapPos();
-	uint16_t getFirstFreeInodeID();
-	uint32_t getFirstFreeBlockID();
-	uint16_t getFreeInodeCnt();
-	uint32_t getFreeBlockCnt();
-	uint16_t getFirstInodePos();
-	uint32_t getFirstBlockPos();
-	uint16_t getRootInode();
+	uint16_t getMagicNum() const;
+	uint16_t getInodeBitmapPos() const;
+	uint32_t getBlockBitmapPos() const;
+	uint16_t getFirstFreeInodeID() const;
+	uint32_t getFirstFreeBlockID() const;
+	uint16_t getFreeInodeCnt() const;
+	uint32_t getFreeBlockCnt() const;
+	uint16_t getFirstInodePos() const;
+	uint32_t getFirstBlockPos() const;
+	uint16_t getRootInode() const;
 
 	void setRootInode(uint16_t rootInode);
 

@@ -22,7 +22,7 @@ public:
 	Shell() = delete;
 	Shell(Simdisk& simdisk, NamedPipe& pipe, uint8_t userID = 0);
 
-	bool getStatus();
+	bool getStatus() const;
 	string read();
 
 	void commandLine(istringstream iss, CRITICAL_SECTION& semaphore);//进行命令行相关操作

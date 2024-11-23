@@ -14,13 +14,13 @@ public:
 
 	void formatting();
 
-	bool getUseFlag();
+	bool getUseFlag() const;
 	void setUseFlag(bool useFlag);
 
-	bool getType();
+	bool getType() const;
 	void setType(bool type);
 
-	uint16_t getInodeID();
+	uint16_t getInodeID() const;
 	void setInodeID(uint16_t iNodeID);
 
 	const string getFilename();
